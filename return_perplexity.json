@@ -1,0 +1,71 @@
+{
+   "id":"e302acbe-12f9-41e4-8bea-822ac6a803e7",
+   "model":"sonar",
+   "created":1755010508,
+   "usage":{
+      "prompt_tokens":1735,
+      "completion_tokens":1000,
+      "total_tokens":2735,
+      "search_context_size":"low",
+      "cost":{
+         "input_tokens_cost":0.001735,
+         "output_tokens_cost":0.001,
+         "request_cost":0.005,
+         "total_cost":0.007735
+      }
+   },
+   "citations":[
+      "https://www.ocr.best/br/imagem-para-texto",
+      "https://www.editpad.org/tool/br/imagem-em-texto",
+      "https://www.onlineocr.net/pt/",
+      "https://www.imagetotext.info/br/imagem-em-texto",
+      "https://www.imagetotext.io/pt"
+   ],
+   "search_results":[
+      {
+         "title":"Converter Imagem em Texto - Extrair Texto de Imagem - OCR.Best",
+         "url":"https://www.ocr.best/br/imagem-para-texto",
+         "date":"None",
+         "last_updated":"2025-08-05"
+      },
+      {
+         "title":"Converter Imagem em texto - Copiar texto de imagem - Editpad",
+         "url":"https://www.editpad.org/tool/br/imagem-em-texto",
+         "date":"None",
+         "last_updated":"2025-08-10"
+      },
+      {
+         "title":"converta PDF para DOC ou de Imagem para texto - Online OCR",
+         "url":"https://www.onlineocr.net/pt/",
+         "date":"2025-01-01",
+         "last_updated":"2025-01-08"
+      },
+      {
+         "title":"Converter imagem em texto - Copiar texto de imagem online",
+         "url":"https://www.imagetotext.info/br/imagem-em-texto",
+         "date":"2024-11-29",
+         "last_updated":"2025-08-04"
+      },
+      {
+         "title":"Converter Imagem em Texto - Extrair Texto de Imagem",
+         "url":"https://www.imagetotext.io/pt",
+         "date":"2000-01-01",
+         "last_updated":"2025-07-22"
+      }
+   ],
+   "object":"chat.completion",
+   "choices":[
+      {
+         "index":0,
+         "finish_reason":"stop",
+         "message":{
+            "role":"assistant",
+            "content":"Aqui está a transcrição completa e revisada do texto visível na imagem:\n\nWINEPEDIA\n\nNa taça dos faraós\n\nDescubra o que o irep, produzido pelo antigo povo africano de Kemet, tem a ver com o seu brinde de hoje\n\nPor Mônica Pina e Isabela Ludgero  \nConsultoria Mônica Faria, historiadora e professora especialista em relações étnico-raciais\n\nPara os ocidentais, é natural associar o vinho às antigas civilizações grega e romana. A história da bebida, porém, é bem mais antiga, e remonta a tempos que antecedem a invenção da escrita. O vinho acompanha a evolução de várias civilizações — é citado, por exemplo, nos épicos Ilíada e Odisseia, do poeta grego Homero; no texto do Gilgamesh, uma série de poemas e lendas sumérias; no Talmude, livro sagrado dos judeus; e na própria Bíblia, que traz relatos sobre os vinhedos de Noé — o que torna impossível determinar sua origem exata. No entanto, os mais completos registros do cultivo de vinhas e de produção do vinho encontrados até hoje foram localizados na África, em Kemet — nome usado pelos antigos habitantes para designar o atual Egito.\n\nSeguindo a tendência que por muito tempo dominou os estudos de História, que buscou, entre outras coisas, o “embranquecimento” da civilização egípcia e sua desconexão com a história do continente africano, muitos estudos dão grande relevo ao papel dos keméticos, os habitantes de Kemet, no desenvolvimento da produção de vinho. De fato, nas olheiras da vitivinicultura antiga a África é fundamental, com países como Etiópia por exemplo e relevância especial, e uma contribuição inegável para a ancestralidade da bebida.\n\nEvidências arqueológicas, no entanto, comprovam que, para conhecer os primeiros registros de viticultura, é necessário percorrer os caminhos do Hapy, nome que os povos antigos usavam para designar o Rio Nilo, considerado um dos berços de muitas das antigas civilizações que já existiram. Afluídos mais do que nunca pela sua importância social, desenvolvimento tecnológico e riqueza cultural e artística.\n\nO Delta do Nilo, com suas extensões de terra irrigada, ilhas ensolaradas e curtas estações de inverno, se consolidou como o maior e mais antigo centro de produção de vinho da Antiguidade no Egito. A produção era supervisionada pelo Estado e os vinhos eram classificados de acordo com a sua qualidade. Registros indicam ainda que havia diferentes tipos de classes de vinhos, desde os mais simples aos considerados de melhor qualidade. O vinho também estava presente em celebrações, em rituais religiosos e tinha relevante papel econômico. \n\nTudo indica que foi a partir da unificação do chamado Reino Antigo (2575-2150 a.C.) que a produção de vinho ganhou ainda mais relevância, o que se traduziu em um aumento da produção, do consumo e do comércio. Em vários sítios arqueológicos, foram encontradas prensas e ânforas de vinho. Cenas que retratam o processo de produção também são comuns em relevos e pinturas nos túmulos, revelando etapas como a colheita das uvas, o transporte, o esmagamento, a filtração e o armazenamento. Alguns dos melhores vinhos do período eram os do Delta, mas também havia produção no Oasis de Faium, com qualidade que os tornava especiais. Rótulos eram afixados em ânforas, informando o nome do produtor e o ano, além de dados sobre a qualidade e o tipo do vinho.\n\nRepresentações mostram que o vinho era acompanhado de pão, frutas e carnes, sendo consumido em banquetes e em ocasiões especiais. Com o tempo, as vinhas e as viníferas, a pisa da uva e a extração do mosto por prens…"
+         },
+         "delta":{
+            "role":"assistant",
+            "content":""
+         }
+      }
+   ]
+}
