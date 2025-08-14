@@ -9,10 +9,17 @@ import mimetypes
 import requests
 from pathlib import Path
 from dotenv import load_dotenv
+import sys
 
 here = Path(__file__).resolve()
 src_dir = here.parent.parent
 project_root = src_dir.parent
+
+# Torna 'src' importável (para importar prompts)
+if str(src_dir) not in sys.path:
+    sys.path.append(str(src_dir))
+
+from prompts.prompt_factory import PromptFactory
 
 dotenv_path = project_root / ".env"
 if dotenv_path.exists():
@@ -65,28 +72,7 @@ def call_perplexity_api(image_base64: str) -> dict:
     payload = {
         "model": "sonar",
         "temperature": 0.0,
-        "messages": [
-            {
-                "role": "system",
-                "content": "Você é um assistente especializado em transcrição de texto de imagens."
-            },
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": (
-                            "Esta imagem pode conter texto que precisa ser transcrito. Por favor:\n"
-                            "1. Execute o OCR na imagem cuidadosamente em todos os elementos visíveis;\n"
-                            "2. Certifique-se de que nenhum texto seja omitido ou mal interpretado;\n"
-                            "3. Verifique novamente o texto extraído para garantir precisão;\n"
-                            "4. Retorne o texto extraído em formato Markdown."
-                        )
-                    },
-                    {"type": "image_url", "image_url": {"url": image_base64}},
-                ],
-            },
-        ],
+        "messages": PromptFactory.winepedia_ocr_messages(image_base64),
         "stream": False,
     }
 
@@ -126,10 +112,10 @@ def process_images(input_dir: Path, output_file: Path, recursive: bool = False):
         for img_path in image_files:
             try:
                 print(f"[INFO] Processando imagem: {img_path}")
-                #image_base64 = convert_image_to_base64(img_path)
-                #result_json = call_perplexity_api(image_base64)
-                #content = result_json["choices"][0]["message"]["content"]
-                #f.write(f"## {img_path.name}\n\n{content}\n\n")
+                image_base64 = convert_image_to_base64(img_path)
+                result_json = call_perplexity_api(image_base64)
+                content = result_json["choices"][0]["message"]["content"]
+                f.write(f"## {img_path.name}\n\n{content}\n\n")
                 print(f"[OK] Texto extraído para: {img_path.name}")
             except Exception as e:
                 print(f"[ERRO] Falha ao processar {img_path.name}: {e}")

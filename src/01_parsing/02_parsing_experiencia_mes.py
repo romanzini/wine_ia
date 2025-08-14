@@ -11,10 +11,17 @@ import re
 import requests
 from pathlib import Path
 from dotenv import load_dotenv
+import sys
 
 here = Path(__file__).resolve()
 src_dir = here.parent.parent
 project_root = src_dir.parent
+
+# Torna 'src' importável (para importar prompts)
+if str(src_dir) not in sys.path:
+    sys.path.append(str(src_dir))
+
+from prompts.prompt_factory import PromptFactory
 
 dotenv_path = project_root / ".env"
 if dotenv_path.exists():
@@ -22,55 +29,6 @@ if dotenv_path.exists():
 else:
     print(f"⚠️ Warning: .env not found at {dotenv_path}")
 
-def build_experiencia_mes_messages(image_base64: str) -> list:
-    """
-    Constrói as mensagens para extrair apenas os atributos desejados da imagem.
-    Retorno esperado: JSON com as chaves { "nome_vinho": string|null, "tipo": string|null, "regiao": string|null, "vinicula": string|null,
-    "uva": string|null, "amadurecimento": string|null, "potencial_guarda": string|null, "visual": string|null, "olfativo": string|null, "gustativo": string|null, 
-    "temperatura_servico": string|null, "harmonizacao": string|null }.
-    """
-    return [
-        {
-            "role": "system",
-            "content": (
-                "Você é um extrator de dados altamente preciso. "
-                "Extraia somente os campos solicitados a partir da imagem fornecida."
-            ),
-        },
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": (
-                        "A partir da imagem, extraia EXCLUSIVAMENTE os seguintes atributos:\n"
-                        "1) Nome do vinho (exemplos: EL TOQUI RESERVA ESPECIAL\n"
-                        "2) Tipo (exemplos: Tinto, Branco, Rosé, Espumante, Fortificado)\n"
-                        "3) Região (exemplos: D.O. Vale Central)\n"
-                        "4) Vinícula (exemplos: Casas del Toqui)\n"
-                        "5) Uva (exemplos: Cabernet Sauvignon, Merlot)\n"
-                        "6) Amadurecimento (exemplos: Estágio de 8 meses em barricas de carvalho)\n"
-                        "7) Potencial de Guarda (exemplos: 5 anos)\n"
-                        "8) Visual (exemplos: Rubi Intenso)\n"
-                        "9) Olfativo (exemplos: Aroma de frutas negras, especias como pimenta e canela)\n"
-                        "10) Gustativo (exemplos: Redondo, com taninos aveludados e boa acidez)\n"
-                        "11) Temperatura de serviço (exemplos: 18 C)\n"
-                        "12) Harmonização (exemplos: Abóbora com carne seca, tender assado com cravo e farofa, caponata com uva-passa, lombo de porco recheado com ameixa e bacon)\n\n"
-                        "Instruções:\n"
-                        "- Se um atributo não estiver visível, retorne null nesse campo.\n"
-                        "- Não invente informações.\n"
-                        "- Responda SOMENTE com um JSON válido, sem comentários, sem Markdown, sem bloco de código.\n"
-                        "- Execute o OCR na imagem cuidadosamente em todos os elementos visíveis.\n"
-                        "- Certifique-se de que nenhum texto seja mal interpretado.\n"
-                        "- Verifique novamente o texto extraído para garantir precisão.\n"
-                        "Formato exato da resposta:\n"
-                        '{\"nome_vinho\": string|null, \"tipo\": string|null, \"regiao\": string|null, \"vinicula\": string|null, \"uva\": string|null, \"amadurecimento\": string|null, \"potencial_guarda\": string|null, \"visual\": string|null, \"olfativo\": string|null, \"gustativo\": string|null, \"temperatura_servico\": string|null, \"harmonizacao\": string|null}'
-                    ),
-                },
-                {"type": "image_url", "image_url": {"url": image_base64}},
-            ],
-        },
-    ]
 
 def convert_image_to_base64(image_path: Path) -> str:
     """
@@ -123,7 +81,7 @@ def call_perplexity_api(image_base64: str) -> dict:
     payload = {
         "model": "sonar",
         "temperature": 0.0,
-        "messages": build_experiencia_mes_messages(image_base64),
+        "messages": PromptFactory.experiencia_mes_full_messages(image_base64),
         "stream": False,
     }
 
