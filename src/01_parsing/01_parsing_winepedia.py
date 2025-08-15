@@ -108,7 +108,7 @@ def process_images(input_dir: Path, output_file: Path, recursive: bool = False):
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with output_file.open("w", encoding="utf-8") as f:
-        f.write(f"# Resultados - {input_dir.name}\n\n")
+        f.write(f"# Arquivo - {output_file}\n\n")
         for img_path in image_files:
             try:
                 print(f"[INFO] Processando imagem: {img_path}")

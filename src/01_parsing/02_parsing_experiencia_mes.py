@@ -81,7 +81,7 @@ def call_perplexity_api(image_base64: str) -> dict:
     payload = {
         "model": "sonar",
         "temperature": 0.0,
-        "messages": PromptFactory.experiencia_mes_full_messages(image_base64),
+        "messages": PromptFactory.experiencia_mes_messages(image_base64),
         "stream": False,
     }
 
@@ -148,13 +148,13 @@ def process_images(input_dir: Path, output_file: Path, recursive: bool = False):
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with output_file.open("w", encoding="utf-8") as f:
-        f.write(f"# Resultados - {input_dir.name}\n\n")
+        f.write(f"# Arquivo - {output_file}\n\n")
         for img_path in image_files:
             try:
                 print(f"[INFO] Processando imagem: {img_path}")
                 image_base64 = convert_image_to_base64(img_path)
                 dados = call_perplexity_api(image_base64)
-                f.write(f"## {img_path.name}\n")
+                #f.write(f"## {img_path.name}\n")
                 f.write(f"- Nome do vinho: {dados.get('nome_vinho')}\n")
                 f.write(f"- Tipo: {dados.get('tipo')}\n")
                 f.write(f"- Região: {dados.get('regiao')}\n")
